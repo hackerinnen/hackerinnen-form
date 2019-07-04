@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://hackerinnen.space/css/bulma.min.css" />
+    <link
+      href="https://hackerinnen.space/fontawesome/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://hackerinnen.space/scss/main.css"
+      media="screen"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://hackerinnen.space/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://hackerinnen.space/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://hackerinnen.space/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="manifest"
+      href="https://hackerinnen.space/favicon/site.webmanifest"
+    />
+    <link
+      rel="mask-icon"
+      href="https://hackerinnen.space/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body>
+    <header>
+      <nav
+        class="navbar hero-bg"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://hackerinnen.space"
+            >hackerinnen.space</a
+          >
+          <a
+            role="button"
+            class="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navMenu"
+          >
+            <span aria-hidden="true"></span><span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <a
+              class="navbar-item"
+              href="https://hackerinnen.space/tags/hackerinnen"
+              >Hackerinnen</a
+            >
+            <a class="navbar-item" href="https://hackerinnen.space/spaces/"
+              >Spaces</a
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <% if (typeof success != "undefined") { %>
+          <div class="notification is-primary">
+            <button class="delete" type="button"></button>
+            <b>
+              <%= success %>
+              <a href="<%= url %>" target="_blank"><%= url %></a>
+            </b>
+          </div>
+          <% } %> <% if (typeof error != "undefined") { %>
+          <div class="notification is-primary is-danger">
+            <button class="delete" type="button"></button>
+            <b><%= error %></b>
+          </div>
+          <% } %>
+          <div class="content is-medium">
+            <h1 class="title is-size-4"><%= title %></h1>
+            <p>
+              You can either add your profile to the
+              <a href="https://hackerinnen.space" target="_blank"
+                >hackerinnen website</a
+              >
+              by following the instructions on
+              <a
+                target="_blank"
+                href="https://github.com/normade/hackerinnen#how-to-show-yourself"
+                >Github</a
+              >
+              or by filling out the form below. Submitting the form will open a
+              Pull Request on Github for you to review later.
+            </p>
+            <br />
+          </div>
+
+          <form action="" method="post">
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Your full name</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      name="fullname"
+                      class="input"
+                      type="text"
+                      placeholder="Please enter your name"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Your city</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      name="city"
+                      class="input"
+                      type="text"
+                      placeholder="Please enter your city"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content is-medium">
+              <br /><br />
+              <p>
+                To submit your profile please answer the questions in the text
+                area below. If you don't want to answer a question feel free to
+                remove it. Please provide the translations in English and German
+                (for example by using
+                <a target="_blank" href="https://www.deepl.com/translator"
+                  >DeepL</a
+                >).
+                <br />
+                <br />
+                The <code>---</code> in the first section are used to define
+                metadata for
+                <a target="_blank" href="https://gohugo.io/">hugo</a> and need
+                to stay as they are. Please only update the right-hand side of
+                the listed key/value pairs. You can remove lines that you don't
+                need.
+                <br />
+                <br />
+                Have fun!
+              </p>
+            </div>
+
+            <div class="notification is-primary">
+              <button class="delete" type="button"></button>
+              <b>Please, save your changes!</b>
+              <br />
+              We auto save any changes of the text areas below, but once you
+              submit your changes they will be cleared out.<br />
+              We suggest that you also save your data before submitting in case
+              something goes wrong.
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <div class="editor">
+                  <h2>English:</h2>
+                  <textarea
+                    rows="5"
+                    cols="100"
+                    name="markdown_en"
+                    id="markdown_en"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="column">
+                <div class="editor">
+                  <h2>German:</h2>
+                  <textarea
+                    rows="5"
+                    cols="100"
+                    name="markdown_de"
+                    id="markdown_de"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="content is-medium">
+              <p>
+                <b>Ready to submit?</b><br />
+                No worries, your page will not go live immediately.<br />
+                Once your profile was submitted we will provide you with the
+                link to the pull request. If you look at the pull request,
+                scroll down to the "checks" section you will see a line saying
+                "netlify/hackerinnen/deploy-preview — Deploy preview ready!". If
+                you click on "Details" it will bring you to the staging
+                environment were you can preview the page and make sure
+                everything looks good. It is also possible to close the pull
+                request and create a new one.
+              </p>
+              <p>
+                <a
+                  href="https://github.com/normade/hackerinnen#contact"
+                  target="_blank"
+                  >Let us know</a
+                >
+                if you have any questions.
+              </p>
+              <br />
+            </div>
+
+            <div class="field is-grouped is-grouped-centered">
+              <p class="control">
+                <button type="submit" class="button is-primary is-large">
+                  I'm ready to submit
+                </button>
+              </p>
+              <br /><br /><br />
+              <br /><br /><br />
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="/javascripts/initialMarkdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+      var md_de = new SimpleMDE({
+        element: document.getElementById('markdown_de'),
+        toolbar: false,
+        spellChecker: false,
+        codeSyntaxHighlighting: false,
+        autosave: {
+          enabled: true,
+          uniqueId: 'germanProfile',
+          delay: 500,
+        },
+      });
+      if (md_de.value() === '') {
+        md_de.value(initialMarkdown_de);
+      }
+
+      var md_en = new SimpleMDE({
+        element: document.getElementById('markdown_en'),
+        toolbar: false,
+        spellChecker: false,
+        codeSyntaxHighlighting: false,
+        autosave: {
+          enabled: true,
+          uniqueId: 'englishProfile',
+          delay: 1000,
+        },
+      });
+      if (md_en.value() === '') {
+        md_en.value(initialMarkdown_de);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(
+          $delete => {
+            $notification = $delete.parentNode;
+            $delete.addEventListener('click', () => {
+              $notification.parentNode.removeChild($notification);
+            });
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
