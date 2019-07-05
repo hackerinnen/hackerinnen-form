@@ -120,7 +120,7 @@
             <br />
           </div>
 
-          <form action="" method="post">
+          <form id="submitProfileForm" action="/" method="post">
             <div class="field is-horizontal">
               <div class="field-label is-normal">
                 <label class="label">Your full name</label>
@@ -243,7 +243,13 @@
 
             <div class="field is-grouped is-grouped-centered">
               <p class="control">
-                <button type="submit" class="button is-primary is-large">
+                <button
+                  type="submit"
+                  class="button is-primary is-large g-recaptcha"
+                  data-sitekey="<%= recaptchaKey %>"
+                  data-callback="onSubmit"
+                  data-size="invisible"
+                >
                   I'm ready to submit
                 </button>
               </p>
@@ -255,8 +261,9 @@
       </section>
     </main>
 
-    <script src="/javascripts/initialMarkdown.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="/javascripts/initialMarkdown.js"></script>
     <script>
       var md_de = new SimpleMDE({
         element: document.getElementById('markdown_de'),
@@ -286,6 +293,10 @@
       });
       if (md_en.value() === '') {
         md_en.value(initialMarkdown_en);
+      }
+
+      function onSubmit(token) {
+        document.getElementById('submitProfileForm').submit();
       }
 
       document.addEventListener('DOMContentLoaded', () => {
