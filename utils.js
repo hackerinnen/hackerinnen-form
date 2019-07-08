@@ -41,7 +41,7 @@ function createDir(path) {
         console.log(`Directory at ${path} created.`);
         resolve(path);
       } catch (error) {
-        console.log(`Error creating directory at ${path}.`);
+        console.log(`Error creating directory at ${path} with error: ${error}`);
         reject(path);
       }
     } else {
@@ -60,7 +60,11 @@ function createCityFolder(cityname, tmpDirPath) {
       'spaces',
       cityname
     );
-    return createDir(cityPath);
+    return Promise.all([
+      createDir(cityPath),
+      createCityMarkdownFileDE(cityname, tmpDirPath),
+      createCityMarkdownFileEN(cityname, tmpDirPath),
+    ]);
   } catch (error) {
     return new Promise((resolve, reject) => {
       return reject(error);
@@ -84,6 +88,57 @@ function createProfileFolder(cityname, username, tmpDirPath) {
       return reject(error);
     });
   }
+}
+
+function createCityMarkdownFileDE(cityname, tmpDirPath) {
+  const date = new Date().toISOString();
+  const data = `---
+title: "${cityname}"
+date: ${date}
+---`;
+
+  console.log(`data ${data}`);
+
+  const filePath = path.resolve(
+    tmpDirPath,
+    REPONAME,
+    'content',
+    'spaces',
+    cityname,
+    'index.md'
+  );
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, data, error => {
+      if (error) {
+        reject(error);
+      }
+      resolve(filePath);
+    });
+  });
+}
+
+function createCityMarkdownFileEN(cityname, tmpDirPath) {
+  const date = new Date().toISOString();
+  const data = `---
+title: "${cityname}"
+date: ${date}
+---`;
+  const filePath = path.resolve(
+    tmpDirPath,
+    REPONAME,
+    'content',
+    'spaces',
+    cityname,
+    'index.en.md'
+  );
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, data, error => {
+      if (error) {
+        reject(error);
+      }
+      resolve(filePath);
+    });
+  });
 }
 
 function createMarkdownFileDE(data, cityname, username, tmpDirPath) {
@@ -146,6 +201,7 @@ async function createPullRequest(cityname, username, tmpFolder) {
 
     await git.branch(branchName);
     await git.checkout(branchName);
+    await git.add(`content/spaces/${cityname}/*.md`);
     await git.add(`content/spaces/${cityname}/${username}/*.md`);
     let commitMessage = `Add profile for ${username} from ${cityname}`;
     await git.commit('-m "' + commitMessage + '"');
