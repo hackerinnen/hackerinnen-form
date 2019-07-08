@@ -8,7 +8,7 @@ meetmelink: https://www.meetme.de
 skills: "HTML, CSS, JS"
 speaking: "JS, Diversity, Cats"
 speakinglink: https://www.speakerinnen.org/lovelace
-website: https://www.lovelace.dev
+website: https://www.lovelace.example.org
 github: lovelace
 twitter: lovelace
 instagram: lovelace
@@ -56,7 +56,7 @@ meetmelink: https://www.meetme.de
 skills: "HTML, CSS, JS"
 speaking: "JS, Diversity, Cats"
 speakinglink: https://www.speakerinnen.org/lovelace
-website: https://www.lovelace.dev
+website: https://www.lovelace.example.org
 github: lovelace
 twitter: lovelace
 instagram: lovelace
