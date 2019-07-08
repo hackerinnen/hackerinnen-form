@@ -1,3 +1,7 @@
+body .reset-link {
+  float: right;
+  font-size: 0.9rem; }
+
 body .editor .CodeMirror .CodeMirror-code .cm-header-1 {
   font-size: 120%; }
 

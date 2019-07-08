@@ -1,6 +1,7 @@
+var date = new Date().toISOString();
 var initialMarkdown_de = `---
 title: "Ada Lovelace"
-date: 2019-02-28T22:15:23+01:00
+date: ${date}
 tags: [hackerinnen]
 intro: Cat lover and color nerd.
 meetme: Lovelace Meetup
@@ -48,7 +49,7 @@ facebook: lovelace
 
 var initialMarkdown_en = `---
 title: "Ada Lovelace"
-date: 2019-02-28T22:15:23+01:00
+date: ${date}
 tags: [hackerinnen]
 intro: Cat lover and color nerd.
 meetme: Lovelace Meetup

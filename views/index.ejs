@@ -195,7 +195,12 @@
             <div class="columns">
               <div class="column">
                 <div class="editor">
-                  <h2>English:</h2>
+                  <h2>
+                    English:
+                    <a href="javascript:resetForm('en');" class="reset-link"
+                      >Reset form</a
+                    >
+                  </h2>
                   <textarea
                     rows="5"
                     cols="100"
@@ -206,7 +211,12 @@
               </div>
               <div class="column">
                 <div class="editor">
-                  <h2>German:</h2>
+                  <h2>
+                    German:
+                    <a href="javascript:resetForm('de');" class="reset-link"
+                      >Reset form</a
+                    >
+                  </h2>
                   <textarea
                     rows="5"
                     cols="100"
@@ -297,6 +307,18 @@
 
       function onSubmit(token) {
         document.getElementById('submitProfileForm').submit();
+      }
+
+      function resetForm(lang) {
+        if (lang === 'en') {
+          md_en.clearAutosavedValue();
+          md_en.value(initialMarkdown_en);
+        }
+
+        if (lang === 'de') {
+          md_de.clearAutosavedValue();
+          md_en.value(initialMarkdown_de);
+        }
       }
 
       document.addEventListener('DOMContentLoaded', () => {
