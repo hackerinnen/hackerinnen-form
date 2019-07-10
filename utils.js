@@ -97,23 +97,27 @@ title: "${cityname}"
 date: ${date}
 ---`;
 
-  console.log(`data ${data}`);
-
   const filePath = path.resolve(
     tmpDirPath,
     REPONAME,
     'content',
     'spaces',
     cityname,
-    'index.md'
+    '_index.md'
   );
   return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, data, error => {
-      if (error) {
-        reject(error);
-      }
+    if (!fs.existsSync(filePath)) {
+      fs.writeFile(filePath, data, error => {
+        if (error) {
+          reject(error);
+        }
+        console.log(`DE Markdown file at ${filePath} created.`);
+        resolve(filePath);
+      });
+    } else {
+      console.log(`DE Markdown file exists already at ${filePath}`);
       resolve(filePath);
-    });
+    }
   });
 }
 
@@ -129,15 +133,21 @@ date: ${date}
     'content',
     'spaces',
     cityname,
-    'index.en.md'
+    '_index.en.md'
   );
   return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, data, error => {
-      if (error) {
-        reject(error);
-      }
+    if (!fs.existsSync(filePath)) {
+      fs.writeFile(filePath, data, error => {
+        if (error) {
+          reject(error);
+        }
+        console.log(`EN Markdown file at ${filePath} created.`);
+        resolve(filePath);
+      });
+    } else {
+      console.log(`EN Markdown file exists already at ${filePath}`);
       resolve(filePath);
-    });
+    }
   });
 }
 
