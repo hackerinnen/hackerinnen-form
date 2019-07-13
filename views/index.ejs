@@ -117,13 +117,28 @@
               or by filling out the form below. Submitting the form will open a
               Pull Request on Github for you to review later.
             </p>
-            <br />
           </div>
 
-          <form id="submitProfileForm" action="/" method="post">
+          <form
+            id="submitProfileForm"
+            action="/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="notification is-primary">
+              <b>Please, save your changes!</b>
+              <br />
+              We auto save any changes of the text areas below, but once you
+              submit your changes they will be cleared out.<br />
+              We suggest that you also save your data before submitting in case
+              something goes wrong.
+            </div>
+
+            <br /><br />
+
             <div class="field is-horizontal">
               <div class="field-label is-normal">
-                <label class="label">Your full name</label>
+                <label class="label">Full name</label>
               </div>
               <div class="field-body">
                 <div class="field">
@@ -142,7 +157,7 @@
 
             <div class="field is-horizontal">
               <div class="field-label is-normal">
-                <label class="label">Your city</label>
+                <label class="label">City</label>
               </div>
               <div class="field-body">
                 <div class="field">
@@ -159,13 +174,41 @@
               </div>
             </div>
 
-            <div class="content is-medium">
-              <br /><br />
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Image</label>
+              </div>
+              <div class="field-body">
+                <div class="file has-name is-right">
+                  <label class="file-label">
+                    <input
+                      class="file-input"
+                      type="file"
+                      id="file"
+                      name="image"
+                      size="5"
+                      accept="image/jpeg"
+                    />
+                    <span class="file-cta">
+                      <span class="file-label">
+                        Choose a .jpg file (2 Mb max)
+                      </span>
+                    </span>
+                    <span class="file-name" id="filename"
+                      >no file selected</span
+                    >
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="content is-small">
               <p>
-                To submit your profile please answer the questions in the text
-                area below. If you don't want to answer a question feel free to
-                remove it. Please provide the translations in English and German
-                (for example by using
+                Please answer the questions in the text area below. If you don't
+                want to answer a question feel free to remove it. Please provide
+                the translations in English and German (for example by using
                 <a target="_blank" href="https://www.deepl.com/translator"
                   >DeepL</a
                 >).
@@ -178,25 +221,14 @@
                 the listed key/value pairs. You can remove lines that you don't
                 need.
                 <br />
-                <br />
-                Have fun!
               </p>
-            </div>
-
-            <div class="notification is-primary">
-              <b>Please, save your changes!</b>
-              <br />
-              We auto save any changes of the text areas below, but once you
-              submit your changes they will be cleared out.<br />
-              We suggest that you also save your data before submitting in case
-              something goes wrong.
             </div>
 
             <div class="columns">
               <div class="column">
                 <div class="editor">
                   <h2>
-                    English:
+                    <b>English:</b>
                     <a href="javascript:resetForm('en');" class="reset-link"
                       >Reset form</a
                     >
@@ -330,6 +362,13 @@
             });
           }
         );
+
+        var file = document.getElementById('file');
+        file.onchange = function() {
+          if (file.files.length > 0) {
+            document.getElementById('filename').innerHTML = file.files[0].name;
+          }
+        };
       });
     </script>
   </body>

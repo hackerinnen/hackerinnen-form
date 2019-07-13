@@ -1,17 +1,46 @@
 const axios = require('axios');
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const utils = require('./../utils');
 const querystring = require('querystring');
+const tmp = require('tmp-promise');
 
-const title = 'Hackerinnen.space - submit your profile';
+const title = 'Submit your profile to Hackerinnen.space';
 const recaptchaKey = process.env.RECAPTCHA_KEY;
+
+const processFormData = function(req, res, next) {
+  tmp
+    .dir()
+    .then(tmpDir => {
+      const config = {
+        dest: tmpDir.path,
+        limits: { fileSize: 2 * 1000 * 1000 },
+      };
+
+      const saveImage = multer(config).single('image');
+      saveImage(req, res, err => {
+        if (err) {
+          return res.render('index', {
+            title: title,
+            recaptchaKey: recaptchaKey,
+            error: err,
+          });
+        }
+        next();
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      next(err);
+    });
+};
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: title, recaptchaKey: recaptchaKey });
 });
 
-router.post('/', function(req, res) {
+router.post('/', processFormData, function(req, res) {
   if (
     !req.body ||
     Object.keys(req.body).length === 0 ||
@@ -40,30 +69,40 @@ router.post('/', function(req, res) {
         `Processing submission for ${req.body.fullname} from ${req.body.city}.`
       );
 
-      return utils.submitProfile(
-        req.body.fullname,
-        req.body.city,
-        req.body.markdown_de,
-        req.body.markdown_en
-      );
+      utils
+        .submitProfile(
+          req.body.fullname,
+          req.body.city,
+          req.body.markdown_de,
+          req.body.markdown_en,
+          req.file
+        )
+        .then(pullrequestUrl => {
+          console.log(
+            `Successful processes submission for ${req.body.fullname} from ${req.body.city} to ${pullrequestUrl}.`
+          );
+          return res.render('index', {
+            title: title,
+            recaptchaKey: recaptchaKey,
+            success: `Thanks for submitting your profile. You can view the pull request at `,
+            url: pullrequestUrl,
+          });
+        })
+        .catch(error => {
+          console.log(`Error while processing submission: ${error}`);
+          return res.render('index', {
+            title: title,
+            recaptchaKey: recaptchaKey,
+            error: `Sorry, something went wrong: ${error}`,
+          });
+        });
     })
     .catch(error => {
-      console.log(`Error while processing submission: ${error}`);
+      console.log(`Captcha error while processing submission: ${error}`);
       return res.render('index', {
         title: title,
         recaptchaKey: recaptchaKey,
-        error: 'Sorry, something went wrong.',
-      });
-    })
-    .then(pullrequestUrl => {
-      console.log(
-        `Successful processes submission for ${req.body.fullname} from ${req.body.city} to ${pullrequestUrl}.`
-      );
-      return res.render('index', {
-        title: title,
-        recaptchaKey: recaptchaKey,
-        success: `Thanks for submitting your profile. You can view the pull request at `,
-        url: pullrequestUrl,
+        error: `Sorry, something went wrong: ${error}`,
       });
     });
 });

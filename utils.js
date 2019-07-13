@@ -171,6 +171,45 @@ function createMarkdownFileDE(data, cityname, username, tmpDirPath) {
   });
 }
 
+function saveImage(fileImage, cityname, username, tmpDirPath) {
+  return new Promise((resolve, reject) => {
+    if (fileImage && fileImage.path && fileImage.originalname) {
+      const nameParts = fileImage.originalname.split('.');
+      if (nameParts.length < 2) {
+        return reject(`Error processing profile image file name`);
+      }
+
+      const extension = nameParts[nameParts.length - 1];
+      if (extension !== 'jpg' && extension !== 'jpeg') {
+        console.log(`Error processing profile image: Wrong file extension.`);
+        return reject(`Wrong file extension. Please choose jpg.`);
+      }
+
+      const newFileName = `${username}.${extension}`;
+      const imageFilePath = path.resolve(
+        tmpDirPath,
+        REPONAME,
+        'content',
+        'spaces',
+        cityname,
+        username,
+        newFileName
+      );
+
+      fs.copyFile(fileImage.path, imageFilePath, err => {
+        if (err) {
+          console.log(`Error processing profile image with error: ${err}.`);
+          return reject(err);
+        }
+        console.log(`Saved profile image to ${imageFilePath}`);
+        return resolve();
+      });
+    } else {
+      console.log(`Error processing profile image.`);
+    }
+  });
+}
+
 function createMarkdownFileEN(data, cityname, username, tmpDirPath) {
   const filePath = path.resolve(
     tmpDirPath,
@@ -212,7 +251,7 @@ async function createPullRequest(cityname, username, tmpFolder) {
     await git.branch(branchName);
     await git.checkout(branchName);
     await git.add(`content/spaces/${cityname}/*.md`);
-    await git.add(`content/spaces/${cityname}/${username}/*.md`);
+    await git.add(`content/spaces/${cityname}/${username}/*`);
     let commitMessage = `Add profile for ${username} from ${cityname}`;
     await git.commit('-m "' + commitMessage + '"');
     await git.push('-u', 'origin', branchName);
@@ -233,7 +272,10 @@ async function createPullRequest(cityname, username, tmpFolder) {
 
     return pullrequestData.data.html_url;
   } catch (error) {
-    console.error(error);
+    return new Promise((resolve, reject) => {
+      console.error(error);
+      reject('Something went wrong when trying to create a pull request.');
+    });
   }
 }
 
@@ -241,7 +283,8 @@ async function submitProfile(
   _username,
   _cityname,
   _filecontentDE,
-  _filecontentEN
+  _filecontentEN,
+  _fileImage
 ) {
   try {
     const username = formatString(_username);
@@ -255,11 +298,12 @@ async function submitProfile(
     await createProfileFolder(cityname, username, tmpDirPath);
     await createMarkdownFileDE(_filecontentDE, cityname, username, tmpDirPath);
     await createMarkdownFileEN(_filecontentEN, cityname, username, tmpDirPath);
+    await saveImage(_fileImage, cityname, username, tmpDirPath);
 
     return await createPullRequest(cityname, username, tmpDirPath);
   } catch (error) {
     return new Promise((resolve, reject) => {
-      return reject(error);
+      reject(error);
     });
   }
 }
