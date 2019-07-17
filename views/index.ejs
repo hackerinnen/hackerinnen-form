@@ -128,10 +128,7 @@
             <div class="notification is-primary">
               <b>Please, save your changes!</b>
               <br />
-              We auto save any changes of the text areas below, but once you
-              submit your changes they will be cleared out.<br />
-              We suggest that you also save your data before submitting in case
-              something goes wrong.
+              Make sure you save your answers (outside of this website), before submitting in case something goes wrong.
             </div>
 
             <br /><br />
@@ -148,6 +145,7 @@
                       class="input"
                       type="text"
                       placeholder="Please enter your name"
+                      value="<%= fullname %>"
                       required
                     />
                   </div>
@@ -167,6 +165,7 @@
                       class="input"
                       type="text"
                       placeholder="Please enter your city"
+                      value="<%= city %>"
                       required
                     />
                   </div>
@@ -319,7 +318,12 @@
         },
       });
       if (md_de.value() === '') {
-        md_de.value(initialMarkdown_de);
+        var submittedData = `<%= markdown_de %>`;
+        if (submittedData.length !== 0) {
+          md_de.value(submittedData);
+        } else {
+          md_de.value(initialMarkdown_de);
+        }
       }
 
       var md_en = new SimpleMDE({
@@ -334,10 +338,17 @@
         },
       });
       if (md_en.value() === '') {
-        md_en.value(initialMarkdown_en);
+        var submittedData = `<%= markdown_en %>`;
+        if (submittedData.length !== 0) {
+          md_en.value(submittedData);
+        } else {
+          md_en.value(initialMarkdown_en);
+        }
       }
 
       function onSubmit(token) {
+        var button = document.getElementsByTagName("button");
+        button[0].disabled = true;
         document.getElementById('submitProfileForm').submit();
       }
 

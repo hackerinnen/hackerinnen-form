@@ -8,6 +8,8 @@ const sassMiddleware = require('node-sass-middleware');
 const utils = require('./utils');
 
 const indexRouter = require('./routes/index');
+const recaptchaKey = process.env.RECAPTCHA_KEY;
+const title = 'Submit your profile to Hackerinnen.space';
 
 const app = express();
 
@@ -49,13 +51,16 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  console.log(`Oh snap! The server responded with this error: ${err}`);
+  res.render('index', {
+    title: title,
+    fullname: req.body.fullname,
+    city: req.body.city,
+    markdown_de: req.body.markdown_de,
+    markdown_en: req.body.markdown_en,
+    recaptchaKey: recaptchaKey,
+    error: `Oh snap! The server responded with this error: ${err}`,
+  });
 });
 
 module.exports = app;

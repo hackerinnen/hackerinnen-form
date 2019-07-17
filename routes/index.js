@@ -26,40 +26,43 @@ const processFormData = function(req, res, next) {
 
       const saveImage = multer(config).single('image');
       saveImage(req, res, err => {
-        if (err) {
-          return res.render('index', {
-            title: title,
-            recaptchaKey: recaptchaKey,
-            error: err,
-          });
-        }
-        next();
+        next(err);
       });
     })
     .catch(err => {
-      console.log(err);
       next(err);
     });
 };
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: title, recaptchaKey: recaptchaKey });
+/**
+ * Handles GET requests for /
+ */
+router.get('/', function(req, res) {
+  res.render('index', {
+    title: title,
+    fullname: '',
+    city: '',
+    markdown_de: '',
+    markdown_en: '',
+    recaptchaKey: recaptchaKey,
+  });
 });
 
-router.post('/', processFormData, function(req, res) {
+/**
+ * Handles POST requests for /
+ */
+router.post('/', processFormData, function(req, res, next) {
+  if (!req.body) {
+    return next('No data was submitted.');
+  }
+
   if (
-    !req.body ||
-    Object.keys(req.body).length === 0 ||
-    req.body.fullname.length === 0 ||
-    req.body.city.length === 0 ||
-    req.body.markdown_de.length === 0 ||
-    req.body.markdown_en.length === 0
+    req.body.fullname.trim().length === 0 ||
+    req.body.city.trim().length === 0 ||
+    req.body.markdown_de.trim().length === 0 ||
+    req.body.markdown_en.trim().length === 0
   ) {
-    return res.render('index', {
-      title: title,
-      recaptchaKey: recaptchaKey,
-      error: 'Please fill out all fields.',
-    });
+    return next('Please fill out all fields.');
   }
 
   axios
@@ -89,27 +92,21 @@ router.post('/', processFormData, function(req, res) {
           );
           return res.render('index', {
             title: title,
+            fullname: '',
+            city: '',
+            markdown_de: '',
+            markdown_en: '',
             recaptchaKey: recaptchaKey,
             success: `Thanks for submitting your profile. You can view the pull request at `,
             url: pullrequestUrl,
           });
         })
         .catch(error => {
-          console.log(`Error while processing submission: ${error}`);
-          return res.render('index', {
-            title: title,
-            recaptchaKey: recaptchaKey,
-            error: `Sorry, something went wrong: ${error}`,
-          });
+          return next(error);
         });
     })
     .catch(error => {
-      console.log(`Captcha error while processing submission: ${error}`);
-      return res.render('index', {
-        title: title,
-        recaptchaKey: recaptchaKey,
-        error: `Sorry, something went wrong: ${error}`,
-      });
+      return next(error);
     });
 });
 
