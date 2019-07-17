@@ -9,6 +9,12 @@ const tmp = require('tmp-promise');
 const title = 'Submit your profile to Hackerinnen.space';
 const recaptchaKey = process.env.RECAPTCHA_KEY;
 
+/**
+ * Middleware to process multipart form-data with multer
+ * @param {*} req request
+ * @param {*} res response
+ * @param {*} next callback function
+ */
 const processFormData = function(req, res, next) {
   tmp
     .dir()

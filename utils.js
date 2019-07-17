@@ -20,6 +20,10 @@ const octokit = new Octokit({
   auth: GITHUB_AUTH_TOKEN,
 });
 
+/**
+ * Async function to clone repo into tmp dir
+ * @returns promise
+ */
 async function cloneRepo() {
   const tmpDir = await tmp.dir();
   workingDirectory = tmpDir.path;
@@ -28,11 +32,21 @@ async function cloneRepo() {
   return git.clone(repo);
 }
 
+/**
+ * Function to copy repo into new tmp dir
+ * @param {string} path to tmp dir
+ * @returns promise
+ */
 function copyRepo(path) {
   console.log(`Copy repo to ${path}/${REPONAME}`);
   return cmd.cp(`-R ${workingDirectory}/${REPONAME} ${path}/${REPONAME}`);
 }
 
+/**
+ * Function to create a new directory
+ * @param {string} path to new dir
+ * @returns promise
+ */
 function createDir(path) {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(path)) {
@@ -51,6 +65,12 @@ function createDir(path) {
   });
 }
 
+/**
+ * Function to create a folder for city content
+ * @param {string} cityname name of the city folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
 function createCityFolder(cityname, tmpDirPath) {
   try {
     const cityPath = path.resolve(
@@ -72,6 +92,13 @@ function createCityFolder(cityname, tmpDirPath) {
   }
 }
 
+/**
+ * Function to create a folder for the user profile
+ * @param {string} cityname name of the city folder
+ * @param {string} username name of the user folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
 function createProfileFolder(cityname, username, tmpDirPath) {
   try {
     const userPath = path.resolve(
@@ -90,6 +117,12 @@ function createProfileFolder(cityname, username, tmpDirPath) {
   }
 }
 
+/**
+ * Function to create a german markdown file in the city folder
+ * @param {string} cityname name of the city folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
 function createCityMarkdownFileDE(cityname, tmpDirPath) {
   const date = new Date().toISOString();
   const data = `---
@@ -121,6 +154,12 @@ date: ${date}
   });
 }
 
+/**
+ * Function to create a english markdown file in the city folder
+ * @param {string} cityname name of the city folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
 function createCityMarkdownFileEN(cityname, tmpDirPath) {
   const date = new Date().toISOString();
   const data = `---
@@ -151,6 +190,14 @@ date: ${date}
   });
 }
 
+/**
+ * Function to create a german markdown file in the user folder
+ * @param {string} data markdown file content
+ * @param {string} cityname name of the city folder
+ * @param {string} username name of the user folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
 function createMarkdownFileDE(data, cityname, username, tmpDirPath) {
   const filePath = path.resolve(
     tmpDirPath,
@@ -171,6 +218,42 @@ function createMarkdownFileDE(data, cityname, username, tmpDirPath) {
   });
 }
 
+/**
+ * Function to create a english markdown file in the user folder
+ * @param {string} data markdown file content
+ * @param {string} cityname name of the city folder
+ * @param {string} username name of the user folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
+function createMarkdownFileEN(data, cityname, username, tmpDirPath) {
+  const filePath = path.resolve(
+    tmpDirPath,
+    REPONAME,
+    'content',
+    'spaces',
+    cityname,
+    username,
+    'index.en.md'
+  );
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, data, error => {
+      if (error) {
+        reject(error);
+      }
+      resolve(filePath);
+    });
+  });
+}
+
+/**
+ * Function to save user image
+ * @param {string} fileImage the image file
+ * @param {string} cityname name of the city folder
+ * @param {string} username name of the user folder
+ * @param {string} tmpDirPath the tmp dir path
+ * @returns promise
+ */
 function saveImage(fileImage, cityname, username, tmpDirPath) {
   return new Promise((resolve, reject) => {
     if (fileImage && fileImage.path && fileImage.originalname) {
@@ -210,26 +293,10 @@ function saveImage(fileImage, cityname, username, tmpDirPath) {
   });
 }
 
-function createMarkdownFileEN(data, cityname, username, tmpDirPath) {
-  const filePath = path.resolve(
-    tmpDirPath,
-    REPONAME,
-    'content',
-    'spaces',
-    cityname,
-    username,
-    'index.en.md'
-  );
-  return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, data, error => {
-      if (error) {
-        reject(error);
-      }
-      resolve(filePath);
-    });
-  });
-}
-
+/**
+ * Format string to use dashes and lowercase characters
+ * @param {string} str
+ */
 function formatString(str) {
   try {
     return str.replace(/\s+/g, '-').toLowerCase();
@@ -240,6 +307,12 @@ function formatString(str) {
   }
 }
 
+/**
+ * Async function to creat pull request
+ * @param {string} cityname name of the city folder
+ * @param {string} username name of the user folder
+ * @param {string} tmpDirPath the tmp dir path
+ */
 async function createPullRequest(cityname, username, tmpFolder) {
   try {
     await process.chdir(`${tmpFolder}/${REPONAME}`);
@@ -279,6 +352,12 @@ async function createPullRequest(cityname, username, tmpFolder) {
   }
 }
 
+/**
+ * Main function to submit the profile which includes creating all folders and files and the final pull request.
+ * @param {string} cityname name of the city folder
+ * @param {string} username name of the user folder
+ * @param {string} tmpDirPath the tmp dir path
+ */
 async function submitProfile(
   _username,
   _cityname,
