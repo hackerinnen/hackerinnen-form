@@ -133,101 +133,92 @@
 
             <br /><br />
 
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Full name</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input
-                      name="fullname"
-                      class="input"
-                      type="text"
-                      placeholder="Please enter your name"
-                      value="<%= fullname %>"
-                      required
-                    />
-                  </div>
-                </div>
+            <div class="field">
+              <label class="label">Full name*</label>
+                <div class="control">
+                  <input
+                    name="fullname"
+                    class="input"
+                    type="text"
+                    placeholder="Please enter your name"
+                    value="<%= fullname %>"
+                    maxlength="50"
+                    required
+                  />
               </div>
             </div>
 
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">City</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input
-                      name="city"
-                      class="input"
-                      type="text"
-                      placeholder="Please enter your city"
-                      value="<%= city %>"
-                      required
-                    />
-                  </div>
+            <div class="field">
+              <label class="label">City*</label>
+                <div class="control">
+                  <input
+                    name="city"
+                    class="input"
+                    type="text"
+                    placeholder="Please enter your city"
+                    value="<%= city %>"
+                    maxlength="50"
+                    required
+                  />
                 </div>
-              </div>
             </div>
 
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Image</label>
-              </div>
-              <div class="field-body">
-                <div class="file has-name is-right">
-                  <label class="file-label">
-                    <input
-                      class="file-input"
-                      type="file"
-                      id="file"
-                      name="image"
-                      size="5"
-                      accept="image/jpeg"
-                    />
-                    <span class="file-cta">
-                      <span class="file-label">
-                        Choose a .jpg file (2 Mb max)
-                      </span>
+            <div class="field">
+              <label class="label">Image</label>
+              <div class="file has-name">
+                <label class="file-label">
+                  <input
+                    class="file-input"
+                    type="file"
+                    id="file"
+                    name="image"
+                    size="5"
+                    accept="image/jpeg"
+                  />
+                  <span class="file-cta">
+                    <span class="file-label">
+                      Choose a .jpg file (2 Mb max)
                     </span>
-                    <span class="file-name" id="filename"
-                      >no file selected</span
-                    >
-                  </label>
-                </div>
+                  </span>
+                  <span class="file-name" id="filename"
+                    >no file selected</span
+                  >
+                </label>
               </div>
             </div>
 
-            <br />
+            <br /><br />
 
-            <div class="content is-small">
-              <p>
-                Please answer the questions in the text area below. If you don't
-                want to answer a question feel free to remove it. Please provide
-                the translations in English and German (for example by using
-                <a target="_blank" href="https://www.deepl.com/translator"
-                  >DeepL</a
-                >).
-                <br />
-                <br />
-                The <code>---</code> in the first section are used to define
-                metadata for
-                <a target="_blank" href="https://gohugo.io/">hugo</a> and need
-                to stay as they are. Please only update the right-hand side of
-                the listed key/value pairs. You can remove lines that you don't
-                need.
-                <br />
-              </p>
+            <div class="columns">
+              <div class="column is-two-thirds-desktop">
+                <div class="content is-small">
+                  <p>* Required fields</p>
+                  <p>
+                    Please answer the questions in the text area below. If you don't
+                    want to answer a question feel free to remove it. Please provide
+                    the translations in English and German (for example by using
+                    <a target="_blank" href="https://www.deepl.com/translator"
+                      >DeepL</a
+                    >).
+                    <br />
+                    <br />
+                    The <code>---</code> in the first section are used to define
+                    metadata for
+                    <a target="_blank" href="https://gohugo.io/">hugo</a> and need
+                    to stay as they are. Please only update the right-hand side of
+                    the listed key/value pairs. You can remove lines that you don't
+                    need.
+                    <br />
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div class="columns">
               <div class="column">
                 <div class="editor">
                   <h2>
-                    <b>English:</b>
+                    <b>Questionnaire in English*</b>
                     <a href="javascript:resetForm('en');" class="reset-link"
                       >Reset form</a
                     >
@@ -243,7 +234,7 @@
               <div class="column">
                 <div class="editor">
                   <h2>
-                    German:
+                    <b>Questionnaire in German*</b>
                     <a href="javascript:resetForm('de');" class="reset-link"
                       >Reset form</a
                     >

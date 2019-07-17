@@ -62,7 +62,7 @@ router.post('/', processFormData, function(req, res, next) {
     req.body.markdown_de.trim().length === 0 ||
     req.body.markdown_en.trim().length === 0
   ) {
-    return next('Please fill out all fields.');
+    return next('Please fill out all required fields.');
   }
 
   axios
