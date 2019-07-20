@@ -8,10 +8,10 @@ const sassMiddleware = require('node-sass-middleware');
 const utils = require('./utils');
 
 const indexRouter = require('./routes/index');
-const recaptchaKey = process.env.RECAPTCHA_KEY;
-const title = 'Submit your profile to Hackerinnen.space';
-
 const app = express();
+
+app.locals.title = 'Submit your profile to Hackerinnen.space';
+app.locals.recaptchaKey = process.env.RECAPTCHA_KEY;
 
 (async () => {
   try {
@@ -53,12 +53,10 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   console.log(`Oh snap! The server responded with this error: ${err}`);
   res.render('index', {
-    title: title,
     fullname: req.body.fullname,
     city: req.body.city,
     markdown_de: req.body.markdown_de,
     markdown_en: req.body.markdown_en,
-    recaptchaKey: recaptchaKey,
     error: `Oh snap! The server responded with this error: ${err}`,
   });
 });

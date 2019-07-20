@@ -6,9 +6,6 @@ const utils = require('./../utils');
 const querystring = require('querystring');
 const tmp = require('tmp-promise');
 
-const title = 'Submit your profile to Hackerinnen.space';
-const recaptchaKey = process.env.RECAPTCHA_KEY;
-
 /**
  * Middleware to process multipart form-data with multer
  * @param {*} req request
@@ -39,12 +36,10 @@ const processFormData = function(req, res, next) {
  */
 router.get('/', function(req, res) {
   res.render('index', {
-    title: title,
     fullname: '',
     city: '',
     markdown_de: '',
     markdown_en: '',
-    recaptchaKey: recaptchaKey,
   });
 });
 
@@ -91,12 +86,10 @@ router.post('/', processFormData, function(req, res, next) {
             `Successful processes submission for ${req.body.fullname} from ${req.body.city} to ${pullrequestUrl}.`
           );
           return res.render('index', {
-            title: title,
             fullname: '',
             city: '',
             markdown_de: '',
             markdown_en: '',
-            recaptchaKey: recaptchaKey,
             success: `Thanks for submitting your profile. You can view the pull request at `,
             url: pullrequestUrl,
           });
