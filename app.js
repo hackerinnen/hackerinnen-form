@@ -1,10 +1,12 @@
 const createError = require('http-errors');
 require('dotenv').config();
 const express = require('express');
+const csp = require('helmet-csp');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const uuidv4 = require('uuidv4');
 const utils = require('./utils');
 
 const indexRouter = require('./routes/index');
@@ -29,9 +31,31 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(function(req, res, next) {
+  res.locals.nonce = uuidv4();
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(
+  csp({
+    directives: {
+      scriptSrc: [
+        "'self'",
+        "'strict-dynamic'",
+        (req, res) => `'nonce-${res.locals.nonce}'`,
+      ],
+      styleSrc: [
+        "'self'",
+        'https://www.hackerinnen.space',
+        'https://hackerinnen.space',
+        'https://cdn.jsdelivr.net',
+        'https://maxcdn.bootstrapcdn.com',
+      ],
+    },
+  })
+);
 app.use(
   sassMiddleware({
     src: path.join(__dirname, 'public'),

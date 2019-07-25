@@ -36,10 +36,6 @@
       href="https://hackerinnen.space/favicon/favicon-16x16.png"
     />
     <link
-      rel="manifest"
-      href="https://hackerinnen.space/favicon/site.webmanifest"
-    />
-    <link
       rel="mask-icon"
       href="https://hackerinnen.space/favicon/safari-pinned-tab.svg"
       color="#5bbad5"
@@ -128,39 +124,40 @@
             <div class="notification is-primary">
               <b>Please, save your changes!</b>
               <br />
-              Make sure you save your answers (outside of this website), before submitting in case something goes wrong.
+              Make sure you save your answers (outside of this website), before
+              submitting in case something goes wrong.
             </div>
 
             <br /><br />
 
             <div class="field">
               <label class="label">Full name*</label>
-                <div class="control">
-                  <input
-                    name="fullname"
-                    class="input"
-                    type="text"
-                    placeholder="Please enter your name"
-                    value="<%= fullname %>"
-                    maxlength="50"
-                    required
-                  />
+              <div class="control">
+                <input
+                  name="fullname"
+                  class="input"
+                  type="text"
+                  placeholder="Please enter your name"
+                  value="<%= fullname %>"
+                  maxlength="50"
+                  required
+                />
               </div>
             </div>
 
             <div class="field">
               <label class="label">City*</label>
-                <div class="control">
-                  <input
-                    name="city"
-                    class="input"
-                    type="text"
-                    placeholder="Please enter your city"
-                    value="<%= city %>"
-                    maxlength="50"
-                    required
-                  />
-                </div>
+              <div class="control">
+                <input
+                  name="city"
+                  class="input"
+                  type="text"
+                  placeholder="Please enter your city"
+                  value="<%= city %>"
+                  maxlength="50"
+                  required
+                />
+              </div>
             </div>
 
             <div class="field">
@@ -180,9 +177,7 @@
                       Choose a .jpg file (2 Mb max)
                     </span>
                   </span>
-                  <span class="file-name" id="filename"
-                    >no file selected</span
-                  >
+                  <span class="file-name" id="filename">no file selected</span>
                 </label>
               </div>
             </div>
@@ -194,9 +189,10 @@
                 <div class="content is-small">
                   <p>* Required fields</p>
                   <p>
-                    Please answer the questions in the text area below. If you don't
-                    want to answer a question feel free to remove it. Please provide
-                    the translations in English and German (for example by using
+                    Please answer the questions in the text area below. If you
+                    don't want to answer a question feel free to remove it.
+                    Please provide the translations in English and German (for
+                    example by using
                     <a target="_blank" href="https://www.deepl.com/translator"
                       >DeepL</a
                     >).
@@ -204,10 +200,10 @@
                     <br />
                     The <code>---</code> in the first section are used to define
                     metadata for
-                    <a target="_blank" href="https://gohugo.io/">hugo</a> and need
-                    to stay as they are. Please only update the right-hand side of
-                    the listed key/value pairs. You can remove lines that you don't
-                    need.
+                    <a target="_blank" href="https://gohugo.io/">hugo</a> and
+                    need to stay as they are. Please only update the right-hand
+                    side of the listed key/value pairs. You can remove lines
+                    that you don't need.
                     <br />
                   </p>
                 </div>
@@ -293,10 +289,18 @@
       </section>
     </main>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script src="/javascripts/initialMarkdown.js"></script>
-    <script>
+    <script
+      src="https://www.google.com/recaptcha/api.js"
+      nonce="<%= nonce %>"
+      async
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"
+      nonce="<%= nonce %>"
+    ></script>
+    <script src="/javascripts/initialMarkdown.js" nonce="<%= nonce %>"></script>
+    <script nonce="<%= nonce %>">
       var md_de = new SimpleMDE({
         element: document.getElementById('markdown_de'),
         toolbar: false,
@@ -338,7 +342,7 @@
       }
 
       function onSubmit(token) {
-        var button = document.getElementsByTagName("button");
+        var button = document.getElementsByTagName('button');
         button[0].disabled = true;
         document.getElementById('submitProfileForm').submit();
       }
