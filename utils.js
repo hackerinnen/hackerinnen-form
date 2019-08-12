@@ -5,7 +5,7 @@ const Octokit = require('@octokit/rest');
 const path = require('path');
 const tmp = require('tmp-promise');
 
-const OWNER = 'normade';
+const OWNER = 'hackerinnen';
 const REPONAME = 'hackerinnen';
 const BOT_EMAIL = 'hello@hackerinnen.space';
 const BOT_NAME = 'Hackerinnen bot';
