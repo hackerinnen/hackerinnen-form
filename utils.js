@@ -13,7 +13,7 @@ const USER = process.env.BOT_GITHUB_USER;
 const PASS = process.env.BOT_GITHUB_PASSWORD;
 const GITHUB_AUTH_TOKEN = process.env.GITHUB_AUTH_TOKEN;
 
-const repo = `https://${USER}:${PASS}@github.com/${USER}/${REPONAME}`;
+const repo = `https://${USER}:${PASS}@github.com/${OWNER}/${REPONAME}`;
 let workingDirectory = '';
 
 const octokit = new Octokit({
