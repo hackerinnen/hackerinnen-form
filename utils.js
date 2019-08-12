@@ -289,6 +289,7 @@ function saveImage(fileImage, cityname, username, tmpDirPath) {
       });
     } else {
       console.log(`Error processing profile image.`);
+      return resolve();
     }
   });
 }
