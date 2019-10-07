@@ -13,6 +13,7 @@ const indexRouter = require('./routes/index');
 const app = express();
 
 app.locals.title = 'Submit your profile to Hackerinnen.space';
+app.locals.env = process.env.NODE_ENV;
 app.locals.recaptchaKey = process.env.RECAPTCHA_KEY;
 
 (async () => {

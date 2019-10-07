@@ -289,12 +289,14 @@
       </section>
     </main>
 
-    <script
-      src="https://www.google.com/recaptcha/api.js"
-      nonce="<%= nonce %>"
-      async
-      defer
-    ></script>
+    <% if(env === 'production') { %>
+      <script
+        src="https://www.google.com/recaptcha/api.js"
+        nonce="<%= nonce %>"
+        async
+        defer
+      ></script>
+    <% } %>
     <script
       src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"
       nonce="<%= nonce %>"
