@@ -60,14 +60,16 @@ router.post('/', processFormData, function(req, res, next) {
     return next('Please fill out all required fields.');
   }
 
-  axios
-    .post(
-      'https://www.google.com/recaptcha/api/siteverify',
-      querystring.stringify({
-        secret: process.env.RECAPTCHA_SECRET,
-        response: req.query['g-recaptcha-response'],
-      })
-    )
+  const captchaPromise = process.env.NODE_ENV === 'production'
+    ? axios.post('https://www.google.com/recaptcha/api/siteverify',
+        querystring.stringify({
+          secret: process.env.RECAPTCHA_SECRET,
+          response: req.query['g-recaptcha-response'],
+        })
+      )
+    : Promise.resolve();
+
+  captchaPromise
     .then(() => {
       console.log(
         `Processing submission for ${req.body.fullname} from ${req.body.city}.`

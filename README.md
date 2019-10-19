@@ -8,14 +8,15 @@ App can be found in production here: https://submit.hackerinnen.space
 
 1. Clone the repo
 2. Change into the repo folder
-3. Create new file named .env in the root dir
-4. Add the following environment variabled to the .env file
+3. Create a copy of the .env.tpl file named .env in the root dir
+4. Add the following environment variables to the .env file
   
     - BOT_GITHUB: github account that will create the pull rquest 
     - GITHUB_AUTH_TOKEN: auth token from the bot github account https://github.com/settings/tokens
     - RECAPTCHA: from google recaptcha site https://www.google.com/recaptcha
 
     ```
+    NODE_ENV=
     BOT_GITHUB_USER=
     BOT_GITHUB_PASSWORD=
     GITHUB_AUTH_TOKEN=
