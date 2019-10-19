@@ -262,7 +262,7 @@ function saveImage(fileImage, cityname, username, tmpDirPath) {
         return reject(`Error processing profile image file name`);
       }
 
-      const extension = nameParts[nameParts.length - 1];
+      const extension = (nameParts[nameParts.length - 1]).toLowerCase();
       if (extension !== 'jpg' && extension !== 'jpeg') {
         console.log(`Error processing profile image: Wrong file extension.`);
         return reject(`Wrong file extension. Please choose jpg.`);
