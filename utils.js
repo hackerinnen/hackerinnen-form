@@ -33,6 +33,16 @@ async function cloneRepo() {
 }
 
 /**
+ * Function to pull latest repo changes
+ * @returns promise
+ */
+async function pullRepo() {
+  await process.chdir(`${workingDirectory}/${REPONAME}`);
+  console.log(`Pull repo at ${workingDirectory}/${REPONAME}`);
+  return git.pull();
+}
+
+/**
  * Function to copy repo into new tmp dir
  * @param {string} path to tmp dir
  * @returns promise
@@ -373,6 +383,7 @@ async function submitProfile(
     const tmpDir = await tmp.dir();
     const tmpDirPath = tmpDir.path;
 
+    await pullRepo();
     await copyRepo(tmpDirPath);
     await createCityFolder(cityname, tmpDirPath);
     await createProfileFolder(cityname, username, tmpDirPath);
