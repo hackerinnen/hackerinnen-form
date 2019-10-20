@@ -298,7 +298,7 @@ function saveImage(fileImage, cityname, username, tmpDirPath) {
         return resolve();
       });
     } else {
-      console.log(`Error processing profile image.`);
+      console.log(`No profile image found.`);
       return resolve();
     }
   });
