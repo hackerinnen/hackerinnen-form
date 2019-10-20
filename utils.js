@@ -330,7 +330,7 @@ async function createPullRequest(cityname, username, tmpFolder) {
     await git.config('user.email', BOT_EMAIL);
     await git.config('user.name', BOT_NAME);
 
-    const branchName = username;
+    const branchName = `${username}-${Date.now()}`;
 
     await git.branch(branchName);
     await git.checkout(branchName);
