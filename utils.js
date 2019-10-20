@@ -344,7 +344,7 @@ async function createPullRequest(cityname, username, tmpFolder) {
       owner: OWNER,
       repo: REPONAME,
       title: commitMessage,
-      head: `${USER}:${branchName}`,
+      head: branchName,
       base: 'master',
       body:
         'This pull request was automatically generated. Thanks for submitting your profile at hackerinnen@herokuapp.com.',
