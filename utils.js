@@ -216,7 +216,7 @@ function createMarkdownFileDE(data, cityname, username, tmpDirPath) {
     'spaces',
     cityname,
     username,
-    'index.md'
+    'index.de.md'
   );
   return new Promise((resolve, reject) => {
     fs.writeFile(filePath, data, error => {
