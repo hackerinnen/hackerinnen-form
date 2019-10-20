@@ -272,7 +272,7 @@ function saveImage(fileImage, cityname, username, tmpDirPath) {
         return reject(`Error processing profile image file name`);
       }
 
-      const extension = (nameParts[nameParts.length - 1]).toLowerCase();
+      const extension = nameParts[nameParts.length - 1].toLowerCase();
       if (extension !== 'jpg' && extension !== 'jpeg') {
         console.log(`Error processing profile image: Wrong file extension.`);
         return reject(`Wrong file extension. Please choose jpg.`);
@@ -298,7 +298,7 @@ function saveImage(fileImage, cityname, username, tmpDirPath) {
         return resolve();
       });
     } else {
-      console.log(`Error processing profile image.`);
+      console.log(`No profile image found.`);
       return resolve();
     }
   });
@@ -344,7 +344,7 @@ async function createPullRequest(cityname, username, tmpFolder) {
       owner: OWNER,
       repo: REPONAME,
       title: commitMessage,
-      head: `${USER}:${branchName}`,
+      head: branchName,
       base: 'master',
       body:
         'This pull request was automatically generated. Thanks for submitting your profile at hackerinnen@herokuapp.com.',
