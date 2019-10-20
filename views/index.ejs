@@ -215,7 +215,7 @@
                 <div class="editor">
                   <h2>
                     <b>Questionnaire in English*</b>
-                    <a href="javascript:resetForm('en');" class="reset-link"
+                    <a id="en" class="reset-link"
                       >Reset form</a
                     >
                   </h2>
@@ -231,7 +231,7 @@
                 <div class="editor">
                   <h2>
                     <b>Questionnaire in German*</b>
-                    <a href="javascript:resetForm('de');" class="reset-link"
+                    <a id="de" class="reset-link"
                       >Reset form</a
                     >
                   </h2>
@@ -360,6 +360,14 @@
           md_de.value(initialMarkdown_de);
         }
       }
+
+      document.querySelector("#en.reset-link").addEventListener('click', () => {
+        resetForm("en");
+      });
+
+      document.querySelector("#de.reset-link").addEventListener('click', () => {
+        resetForm("de")
+      });
 
       document.addEventListener('DOMContentLoaded', () => {
         (document.querySelectorAll('.notification .delete') || []).forEach(
