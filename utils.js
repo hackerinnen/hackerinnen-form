@@ -10,10 +10,9 @@ const REPONAME = 'hackerinnen';
 const BOT_EMAIL = 'hello@hackerinnen.space';
 const BOT_NAME = 'Hackerinnen bot';
 const USER = process.env.BOT_GITHUB_USER;
-const PASS = process.env.BOT_GITHUB_PASSWORD;
 const GITHUB_AUTH_TOKEN = process.env.GITHUB_AUTH_TOKEN;
 
-const repo = `https://${USER}:${PASS}@github.com/${OWNER}/${REPONAME}`;
+const repo = `https://${USER}:${GITHUB_AUTH_TOKEN}@github.com/${OWNER}/${REPONAME}`;
 let workingDirectory = '';
 
 const octokit = new Octokit({
