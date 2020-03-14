@@ -1,7 +1,7 @@
 const cmd = require('cmd-executor');
 const fs = require('fs');
 const git = require('cmd-executor').git;
-const Octokit = require('@octokit/rest');
+const { Octokit } = require("@octokit/rest")
 const path = require('path');
 const tmp = require('tmp-promise');
 
