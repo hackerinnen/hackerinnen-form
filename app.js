@@ -81,6 +81,7 @@ app.use(function(err, req, res, next) {
     res.render('index', {
       fullname: req.body.fullname,
       city: req.body.city,
+      email: req.body.email,
       markdown_de: req.body.markdown_de,
       markdown_en: req.body.markdown_en,
       error: `Oh snap! The server responded with this error: ${err}`,

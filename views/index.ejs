@@ -161,6 +161,25 @@
             </div>
 
             <div class="field">
+              <label class="label">E-Mail*</label>
+              <p class="note">
+                Just in case we need to contact you, but won't be included in
+                the profile.
+              </p>
+              <div class="control">
+                <input
+                  name="email"
+                  class="input"
+                  type="text"
+                  placeholder="Please enter your email"
+                  value="<%= email %>"
+                  maxlength="50"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
               <label class="label">Image</label>
               <div class="file has-name">
                 <label class="file-label">

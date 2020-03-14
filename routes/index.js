@@ -38,6 +38,7 @@ router.get('/', function(req, res) {
   res.render('index', {
     fullname: '',
     city: '',
+    email: '',
     markdown_de: '',
     markdown_en: '',
   });
@@ -54,6 +55,7 @@ router.post('/', processFormData, function(req, res, next) {
   if (
     req.body.fullname.trim().length === 0 ||
     req.body.city.trim().length === 0 ||
+    req.body.email.trim().length === 0 ||
     req.body.markdown_de.trim().length === 0 ||
     req.body.markdown_en.trim().length === 0
   ) {
@@ -81,6 +83,7 @@ router.post('/', processFormData, function(req, res, next) {
         .submitProfile(
           req.body.fullname.trim(),
           req.body.city.trim(),
+          req.body.email.trim(),
           req.body.markdown_de,
           req.body.markdown_en,
           req.file
@@ -92,6 +95,7 @@ router.post('/', processFormData, function(req, res, next) {
           return res.render('index', {
             fullname: '',
             city: '',
+            email: '',
             markdown_de: '',
             markdown_en: '',
             success: `Thanks for submitting your profile. You can view the pull request at `,

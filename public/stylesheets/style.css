@@ -1,6 +1,10 @@
 body .content.is-small {
   font-size: 1rem; }
 
+body .note {
+  font-size: 0.9rem;
+  margin-bottom: 10px; }
+
 body .reset-link {
   float: right;
   font-size: 0.9rem; }
