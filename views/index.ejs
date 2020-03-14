@@ -234,9 +234,7 @@
                 <div class="editor">
                   <h2>
                     <b>Questionnaire in English*</b>
-                    <a id="en" class="reset-link"
-                      >Reset form</a
-                    >
+                    <a id="en" class="reset-link">Reset form</a>
                   </h2>
                   <textarea
                     rows="5"
@@ -250,9 +248,7 @@
                 <div class="editor">
                   <h2>
                     <b>Questionnaire in German*</b>
-                    <a id="de" class="reset-link"
-                      >Reset form</a
-                    >
+                    <a id="de" class="reset-link">Reset form</a>
                   </h2>
                   <textarea
                     rows="5"
@@ -309,12 +305,12 @@
     </main>
 
     <% if(env === 'production') { %>
-      <script
-        src="https://www.google.com/recaptcha/api.js"
-        nonce="<%= nonce %>"
-        async
-        defer
-      ></script>
+    <script
+      src="https://www.google.com/recaptcha/api.js"
+      nonce="<%= nonce %>"
+      async
+      defer
+    ></script>
     <% } %>
     <script
       src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"
@@ -380,12 +376,12 @@
         }
       }
 
-      document.querySelector("#en.reset-link").addEventListener('click', () => {
-        resetForm("en");
+      document.querySelector('#en.reset-link').addEventListener('click', () => {
+        resetForm('en');
       });
 
-      document.querySelector("#de.reset-link").addEventListener('click', () => {
-        resetForm("de")
+      document.querySelector('#de.reset-link').addEventListener('click', () => {
+        resetForm('de');
       });
 
       document.addEventListener('DOMContentLoaded', () => {
