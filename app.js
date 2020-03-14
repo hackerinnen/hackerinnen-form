@@ -6,7 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
-const uuidv4 = require('uuidv4');
+const { uuid } = require('uuidv4');
 const utils = require('./utils');
 
 const indexRouter = require('./routes/index');
@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(function(req, res, next) {
-  res.locals.nonce = uuidv4();
+  res.locals.nonce = uuid();
   next();
 });
 app.use(express.json());
@@ -77,13 +77,23 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   console.log(`Oh snap! The server responded with this error: ${err}`);
-  res.render('index', {
-    fullname: req.body.fullname,
-    city: req.body.city,
-    markdown_de: req.body.markdown_de,
-    markdown_en: req.body.markdown_en,
-    error: `Oh snap! The server responded with this error: ${err}`,
-  });
+  if (req.body) {
+    res.render('index', {
+      fullname: req.body.fullname,
+      city: req.body.city,
+      markdown_de: req.body.markdown_de,
+      markdown_en: req.body.markdown_en,
+      error: `Oh snap! The server responded with this error: ${err}`,
+    });
+  } else {
+    res.render('error', {
+      message: `Oh snap! The server responded with this error: ${err}`,
+      error:{
+        status: '',
+        stack: ''
+      }
+    })
+  }
 });
 
 module.exports = app;
