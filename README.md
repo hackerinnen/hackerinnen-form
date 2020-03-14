@@ -23,7 +23,6 @@ When submitting the form the server validates the data and submits a pull reques
    ```
    NODE_ENV=
    BOT_GITHUB_USER=
-   BOT_GITHUB_PASSWORD=
    GITHUB_AUTH_TOKEN=
    RECAPTCHA_KEY=
    RECAPTCHA_SECRET=
