@@ -11,6 +11,10 @@ const BOT_EMAIL = 'hello@hackerinnen.space';
 const BOT_NAME = 'Hackerinnen bot';
 const USER = process.env.BOT_GITHUB_USER;
 const GITHUB_AUTH_TOKEN = process.env.GITHUB_AUTH_TOKEN;
+const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
+const MAILGUN_DOMAIN = process.env.MAILGUN_DOMAIN;
+
+const mailgun = require('mailgun-js')({apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN});
 
 const repo = `https://${USER}:${GITHUB_AUTH_TOKEN}@github.com/${OWNER}/${REPONAME}`;
 let workingDirectory = '';
@@ -18,6 +22,29 @@ let workingDirectory = '';
 const octokit = new Octokit({
   auth: GITHUB_AUTH_TOKEN,
 });
+
+/**
+ * Function to send an email
+ * @param {string} message
+ * @returns promise
+ */
+function sendEmail(message){
+  const data = {
+    from: 'Hackerinnen bot <app138400195@heroku.com>',
+    to: 'hello@hackerinnen.space',
+    subject: 'Yay! A new hackerinen profile was submitted',
+    text: message
+  };
+
+  return new Promise((resolve, reject) => {
+    mailgun.messages().send(data, (error, body) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(body)
+    });
+  });
+}
 
 /**
  * Async function to clone repo into tmp dir
@@ -371,10 +398,17 @@ async function createPullRequest(cityname, username, tmpFolder) {
 async function submitProfile(
   _username,
   _cityname,
+  _email,
   _filecontentDE,
   _filecontentEN,
   _fileImage
 ) {
+  try {
+    const message = `Username: ${_username}\n\nCity: ${_cityname}\n\nE-Mail: ${_email}\n\n${_filecontentDE}\n\n${_filecontentEN}\n\n`;
+    sendEmail(message)
+  } catch (error) {
+    console.error(error);
+  }
   try {
     const username = formatString(_username);
     const cityname = formatString(_cityname);

@@ -161,6 +161,25 @@
             </div>
 
             <div class="field">
+              <label class="label">E-Mail*</label>
+              <p class="note">
+                Just in case we need to contact you, but won't be included in
+                the profile.
+              </p>
+              <div class="control">
+                <input
+                  name="email"
+                  class="input"
+                  type="text"
+                  placeholder="Please enter your email"
+                  value="<%= email %>"
+                  maxlength="50"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
               <label class="label">Image</label>
               <div class="file has-name">
                 <label class="file-label">
@@ -215,9 +234,7 @@
                 <div class="editor">
                   <h2>
                     <b>Questionnaire in English*</b>
-                    <a id="en" class="reset-link"
-                      >Reset form</a
-                    >
+                    <a id="en" class="reset-link">Reset form</a>
                   </h2>
                   <textarea
                     rows="5"
@@ -231,9 +248,7 @@
                 <div class="editor">
                   <h2>
                     <b>Questionnaire in German*</b>
-                    <a id="de" class="reset-link"
-                      >Reset form</a
-                    >
+                    <a id="de" class="reset-link">Reset form</a>
                   </h2>
                   <textarea
                     rows="5"
@@ -290,12 +305,12 @@
     </main>
 
     <% if(env === 'production') { %>
-      <script
-        src="https://www.google.com/recaptcha/api.js"
-        nonce="<%= nonce %>"
-        async
-        defer
-      ></script>
+    <script
+      src="https://www.google.com/recaptcha/api.js"
+      nonce="<%= nonce %>"
+      async
+      defer
+    ></script>
     <% } %>
     <script
       src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"
@@ -361,12 +376,12 @@
         }
       }
 
-      document.querySelector("#en.reset-link").addEventListener('click', () => {
-        resetForm("en");
+      document.querySelector('#en.reset-link').addEventListener('click', () => {
+        resetForm('en');
       });
 
-      document.querySelector("#de.reset-link").addEventListener('click', () => {
-        resetForm("de")
+      document.querySelector('#de.reset-link').addEventListener('click', () => {
+        resetForm('de');
       });
 
       document.addEventListener('DOMContentLoaded', () => {
