@@ -405,7 +405,7 @@ async function submitProfile(
 ) {
   try {
     const message = `Username: ${_username}\n\nCity: ${_cityname}\n\nE-Mail: ${_email}\n\n${_filecontentDE}\n\n${_filecontentEN}\n\n`;
-    sendEmail(message)
+    await sendEmail(message)
   } catch (error) {
     console.error(error);
   }
