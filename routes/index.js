@@ -74,7 +74,11 @@ router.post('/', processFormData, function(req, res, next) {
       : Promise.resolve();
 
   captchaPromise
-    .then(() => {
+    .then((data) => {
+      if (!data.success) {
+        return next("Invalid captcha");
+      }
+
       console.log(
         `Processing submission for ${req.body.fullname} from ${req.body.city}.`
       );
