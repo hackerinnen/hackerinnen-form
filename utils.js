@@ -373,7 +373,7 @@ async function createPullRequest(cityname, username, tmpFolder) {
       head: branchName,
       base: 'master',
       body:
-        'This pull request was automatically generated. Thanks for submitting your profile at hackerinnen@herokuapp.com.',
+        'This pull request was automatically generated. Thanks for submitting your profile at https://submit.hackerinnen.space/',
     });
 
     console.log(
