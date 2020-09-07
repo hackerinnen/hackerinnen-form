@@ -68,14 +68,14 @@ router.post('/', processFormData, function(req, res, next) {
           'https://www.google.com/recaptcha/api/siteverify',
           querystring.stringify({
             secret: process.env.RECAPTCHA_SECRET,
-            response: req.query['g-recaptcha-response'],
+            response: req.body['g-recaptcha-response'],
           })
         )
       : Promise.resolve();
 
   captchaPromise
     .then((data) => {
-      if (!data.success) {
+      if (!data.data.success) {
         return next("Invalid captcha");
       }
 
