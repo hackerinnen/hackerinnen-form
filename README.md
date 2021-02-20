@@ -28,6 +28,7 @@ When submitting the form the server validates the data and submits a pull reques
    RECAPTCHA_SECRET=
    ```
 
-5. Run `npm install`
-6. Run `nodemon` to start a local server
-7. See the page at localhost:3000
+5. Run `nvm use`
+6. Run `npm install`
+7. Run `npm start` to start a local server
+8. See the page at localhost:3000
