@@ -6,8 +6,8 @@ To make it easy to submit a profile to https://hackerinnen.space we provide this
 
 ## How does it work?
 
-This app serves a simple form where the user can enter name, city, upload a picture and update the markdown file to create a profile for https://hackerinnen.space.
-When submitting the form the server validates the data and submits a pull request at behalf of the user. The pull request can reviewed by the user at https://github.com/hackerinnen/hackerinnen/pulls
+This app serves a simple form where the user can create their profile for https://hackerinnen.space.
+When submitting the form the server validates the data and submits a pull request on behalf of the user. The pull request can reviewed by the user at https://github.com/hackerinnen/hackerinnen/pulls.
 
 ## Run the app locally
 

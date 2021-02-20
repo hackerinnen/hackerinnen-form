@@ -37,7 +37,6 @@ const processFormData = function(req, res, next) {
 router.get('/', function(req, res) {
   res.render('index', {
     fullname: '',
-    city: '',
     email: '',
     markdown_de: '',
     markdown_en: '',
@@ -54,7 +53,6 @@ router.post('/', processFormData, function(req, res, next) {
 
   if (
     req.body.fullname.trim().length === 0 ||
-    req.body.city.trim().length === 0 ||
     req.body.email.trim().length === 0 ||
     req.body.markdown_de.trim().length === 0 ||
     req.body.markdown_en.trim().length === 0
@@ -62,31 +60,25 @@ router.post('/', processFormData, function(req, res, next) {
     return next('Please fill out all required fields.');
   }
 
-  const captchaPromise =
-    process.env.NODE_ENV === 'production'
-      ? axios.post(
-          'https://www.google.com/recaptcha/api/siteverify',
-          querystring.stringify({
-            secret: process.env.RECAPTCHA_SECRET,
-            response: req.body['g-recaptcha-response'],
-          })
-        )
-      : Promise.resolve();
+  const captchaPromise = axios.post(
+    'https://www.google.com/recaptcha/api/siteverify',
+    querystring.stringify({
+      secret: process.env.RECAPTCHA_SECRET,
+      response: req.body['g-recaptcha-response'],
+    })
+  );
 
   captchaPromise
-    .then((data) => {
-      if (!data.data.success) {
-        return next("Invalid captcha");
+    .then(data => {
+      if (!data || !data.data.success) {
+        return next('Invalid captcha');
       }
 
-      console.log(
-        `Processing submission for ${req.body.fullname} from ${req.body.city}.`
-      );
+      console.log(`Processing submission for ${req.body.fullname}.`);
 
       utils
         .submitProfile(
           req.body.fullname.trim(),
-          req.body.city.trim(),
           req.body.email.trim(),
           req.body.markdown_de,
           req.body.markdown_en,
@@ -94,11 +86,10 @@ router.post('/', processFormData, function(req, res, next) {
         )
         .then(pullrequestUrl => {
           console.log(
-            `Successful processes submission for ${req.body.fullname} from ${req.body.city} to ${pullrequestUrl}.`
+            `Successful processes submission for ${req.body.fullname} to ${pullrequestUrl}.`
           );
           return res.render('index', {
             fullname: '',
-            city: '',
             email: '',
             markdown_de: '',
             markdown_en: '',

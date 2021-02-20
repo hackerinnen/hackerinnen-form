@@ -80,7 +80,6 @@ app.use(function(err, req, res, next) {
   if (req.body) {
     res.render('index', {
       fullname: req.body.fullname,
-      city: req.body.city,
       email: req.body.email,
       markdown_de: req.body.markdown_de,
       markdown_en: req.body.markdown_en,
@@ -89,11 +88,11 @@ app.use(function(err, req, res, next) {
   } else {
     res.render('error', {
       message: `Oh snap! The server responded with this error: ${err}`,
-      error:{
+      error: {
         status: '',
-        stack: ''
-      }
-    })
+        stack: '',
+      },
+    });
   }
 });
 

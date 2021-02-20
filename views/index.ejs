@@ -145,21 +145,6 @@
             </div>
 
             <div class="field">
-              <label class="label">City*</label>
-              <div class="control">
-                <input
-                  name="city"
-                  class="input"
-                  type="text"
-                  placeholder="Please enter your city"
-                  value="<%= city %>"
-                  maxlength="50"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="field">
               <label class="label">E-Mail*</label>
               <p class="note">
                 Just in case we need to contact you, but won't be included in
@@ -173,7 +158,6 @@
                   placeholder="Please enter your email"
                   value="<%= email %>"
                   maxlength="50"
-                  required
                 />
               </div>
             </div>
@@ -274,7 +258,7 @@
               </p>
               <p>
                 <a
-                  href="https://github.com/normade/hackerinnen#contact"
+                  href="https://github.com/hackerinnen/hackerinnen#contact"
                   target="_blank"
                   >Let us know</a
                 >
@@ -303,14 +287,12 @@
       </section>
     </main>
 
-    <% if(env === 'production') { %>
     <script
       src="https://www.google.com/recaptcha/api.js"
       nonce="<%= nonce %>"
       async
       defer
     ></script>
-    <% } %>
     <script
       src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"
       nonce="<%= nonce %>"

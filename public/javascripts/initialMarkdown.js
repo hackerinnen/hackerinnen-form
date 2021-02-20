@@ -2,7 +2,8 @@ var date = new Date().toISOString();
 var initialMarkdown_de = `---
 title: "Ada Lovelace"
 date: ${date}
-tags: [hackerinnen]
+tags: hackerinnen
+spaces: leipzig
 intro: Cat lover and color nerd.
 meetme: Lovelace Meetup
 meetmelink: https://www.meetme.de
@@ -14,6 +15,7 @@ github: lovelace
 twitter: lovelace
 instagram: lovelace
 facebook: lovelace
+email: ada@lovelace.com
 ---
 
 # Ein paar Worte zu dir, wer bist du?
@@ -50,7 +52,8 @@ facebook: lovelace
 var initialMarkdown_en = `---
 title: "Ada Lovelace"
 date: ${date}
-tags: [hackerinnen]
+tags: hackerinnen
+spaces: leipzig
 intro: Cat lover and color nerd.
 meetme: Lovelace Meetup
 meetmelink: https://www.meetme.de
@@ -62,6 +65,7 @@ github: lovelace
 twitter: lovelace
 instagram: lovelace
 facebook: lovelace
+email: ada@lovelace.com
 ---
 
 # A few words about you, who are you?
