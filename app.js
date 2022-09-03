@@ -6,7 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
-const { uuid } = require('uuidv4');
+const { v4: uuidv4 } = require('uuid');
 const utils = require('./utils');
 
 const indexRouter = require('./routes/index');
@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(function(req, res, next) {
-  res.locals.nonce = uuid();
+  res.locals.nonce = uuidv4();
   next();
 });
 app.use(express.json());
@@ -41,6 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   csp({
+    useDefaults: true,
     directives: {
       scriptSrc: [
         "'self'",
