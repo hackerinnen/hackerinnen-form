@@ -43,20 +43,24 @@ app.use(
   csp({
     useDefaults: true,
     directives: {
-      imgSrc: ["'self'", 'https://www.hackerinnen.space'],
-      scriptSrc: [
+      'img-src': [
+        "'self'",
+        'https://hackerinnen.space',
+        'https://www.hackerinnen.space',
+      ],
+      'script-src': [
         "'self'",
         "'strict-dynamic'",
         (req, res) => `'nonce-${res.locals.nonce}'`,
       ],
-      styleSrc: [
+      'style-src': [
         "'self'",
         'https://www.hackerinnen.space',
         'https://hackerinnen.space',
         'https://cdn.jsdelivr.net',
         'https://maxcdn.bootstrapcdn.com',
       ],
-      frameSrc: ["'self'", 'https://www.google.com'],
+      'frame-src': ["'self'", 'https://www.google.com'],
     },
   })
 );
