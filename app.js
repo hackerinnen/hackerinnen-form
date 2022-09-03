@@ -43,6 +43,7 @@ app.use(
   csp({
     useDefaults: true,
     directives: {
+      imgSrc: ["'self'", 'https://www.hackerinnen.space'],
       scriptSrc: [
         "'self'",
         "'strict-dynamic'",
@@ -55,6 +56,7 @@ app.use(
         'https://cdn.jsdelivr.net',
         'https://maxcdn.bootstrapcdn.com',
       ],
+      frameSrc: ["'self'", 'https://www.google.com'],
     },
   })
 );
